@@ -1,45 +1,38 @@
-# Dinamik Ürün Slider'ı (W Concept Tarzı)
+# Dinamik Yatay Ürün Slider'ı (JSON Destekli)
 
-Bu proje, HTML, CSS ve JavaScript kullanılarak geliştirilmiş, modern, yatay kaydırılabilir (carousel/slider) bir ürün sergileme arayüzüdür. Hiçbir arka plan (backend) teknolojisine ihtiyaç duymadan, belirtilen klasördeki resimleri otomatik olarak sayar ve ekrana yansıtır.
+Bu proje, modern e-ticaret sitelerinde sıkça görülen yatay kaydırılabilir (horizontal scroll) ürün satırlarının gelişmiş ve tamamen dinamik bir versiyonudur. HTML, CSS ve JavaScript kullanılarak tasarlanmıştır. 
 
-## Özellikler
+En büyük avantajı, kodun içine girip sayı veya metin değiştirmenize gerek kalmadan, klasördeki içeriğe göre kendi kendini şekillendirmesidir.
 
-- **Dinamik Görsel Yükleme:** Javascript, `images` klasöründeki fotoğrafları (`1.jpg`, `2.jpg`...) dener ve hata alana kadar (resimler bitene kadar) otomatik olarak ürün kartlarını oluşturur. Dosya sayısını manuel olarak girmenize gerek yoktur.
-- **Duyarlı (Responsive) Tasarım:** Ekran boyutuna göre yan yana gösterilen ürün sayısı otomatik olarak ayarlanır (Masaüstünde 6, tablette 4/3, mobilde 2 ürün).
-- **Akıllı Ok Butonları:** Slider'ın başına veya sonuna gelindiğinde yönlendirme okları otomatik olarak gizlenir/gösterilir. Oklar, görsellerin tam merkezine dikey olarak hizalanır.
-- **Etkileşimli Beğeni Butonu:** Tıklandığında renk değiştiren ve hafifçe büyüyen (pop efekti) dinamik kalp butonları içerir.
-- **Pürüzsüz Kaydırma (Smooth Scrolling):** Hem fare ile hem de ok butonları ile yumuşak bir kaydırma deneyimi sunar. (CSS `scroll-snap` kullanılarak hizalama desteklenir).
+## Öne Çıkan Özellikler
 
-## Kurulum ve Kullanım
+* **Değişken Fotoğraf Sayısı (Otomatik Algılama):** Projenin en güçlü özelliğidir. Sisteme kaç adet ürün gireceğinizi kod tarafında belirtmenize gerek yoktur. JavaScript, `images` klasöründeki fotoğrafları sırasıyla tarar ve resimler bitene kadar yatay satıra yeni ürün kartları eklemeye devam eder. 5 resim de koysanız, 50 resim de koysanız sistem hatasız çalışır.
+* **Yatay Ürün Satırı (Horizontal Carousel):** Ürünler dikey değil, yan yana sonsuz bir satır şeklinde dizilir. Fareyle veya akıllı yön oklarıyla pürüzsüz bir kaydırma (smooth scroll) deneyimi sunar.
+* **JSON ile Dışarıdan Veri Yönetimi:** Ürünlerin marka, başlık, fiyat ve indirim gibi metin bilgileri kodun içine gömülmez. `veri.json` isimli harici bir dosyadan çekilerek fotoğraflarla eşleştirilir. Bu sayede içerik yönetimi çok daha profesyonel ve kolaydır.
+* **Akıllı Yön Okları:** Kullanıcı yatay satırın en başına veya en sonuna geldiğinde ok butonları otomatik olarak gizlenir. Ayrıca her zaman ürün fotoğraflarının dikey merkezine kendilerini hizalarlar.
 
-Projeyi çalıştırmak için herhangi bir sunucu kurmanıza (Node.js, PHP vb.) gerek yoktur. Sadece dosyaları doğru klasör yapısında organize etmeniz yeterlidir.
+## Kurulum ve Klasör Yapısı
 
-### 1. Klasör Yapısı
-Proje dizininiz aşağıdaki gibi görünmelidir:
+Projeyi kullanabilmek için dosyalarınızın aşağıdaki yapıda olması gerekmektedir:
 
-```text
+```
 proje-klasoru/
 │
 ├── index.html
+├── veri.json         <-- Ürün bilgilerinin (fiyat, isim vb.) bulunduğu dosya
 ├── css/
 │   └── style.css
 ├── js/
 │   └── app.js
-└── images/           <-- Resimlerinizi bu klasöre koymalısınız
-    ├── 1.jpg
+└── images/           
+    ├── 1.jpg         <-- Fotoğraf isimleri sırayla gitmelidir
     ├── 2.jpg
     ├── 3.jpg
     └── ...
 ```
 
-### 2. Resim İsimlendirme Kuralı
-Sistemin otomatik sayım yapabilmesi için `images/` klasörü içindeki resimlerin adları sırasıyla **1.jpg, 2.jpg, 3.jpg** şeklinde rakamlarla isimlendirilmelidir. 
-*(Eğer farklı bir uzantı kullanmak isterseniz -örn: .png- `app.js` dosyasındaki uzantı bölümünü değiştirmeniz gerekir).*
+## Nasıl Kullanılır?
 
-### 3. Çalıştırma
-Sadece `index.html` dosyasına çift tıklayarak varsayılan tarayıcınızda açmanız yeterlidir. JavaScript kodu otomatik olarak resimleri tarayacak ve slider'ı oluşturacaktır.
-
-## Özelleştirme
-
-- **Fiyat, Marka veya Başlıkları Değiştirmek:** `app.js` dosyası içindeki `const cardHTML = ...` yazan bölümdeki HTML şablonunu düzenleyerek kartların içindeki varsayılan metinleri değiştirebilirsiniz.
-- **Klasör Adını Değiştirmek:** Eğer resimlerinizi farklı bir klasörde tutmak isterseniz, `app.js` dosyasındaki `const klasorYolu = "images/";` değişkenini yeni klasör yolunuzla güncelleyebilirsiniz.
+1. **Fotoğrafları Ekleyin:** Sergilemek istediğiniz ürün fotoğraflarını `images/` klasörüne `1.jpg`, `2.jpg` şeklinde numaralandırarak kopyalayın.
+2. **Verileri Girin:** `veri.json` dosyasını açıp her bir fotoğraf sırasına denk gelecek şekilde ürün bilgilerini girin. (Örn: 1. sıradaki veri 1.jpg ile eşleşir). Eğer JSON dosyasında eksik veri varsa, sistem otomatik olarak "Varsayılan Ürün" yedeğini devreye sokar.
+3. **Projeyi Çalıştırın:** Proje artık dışarıdan bir dosya (`veri.json`) okuduğu için tarayıcı güvenliği (CORS) kurallarına tabidir. Dosyaları doğrudan çift tıklayarak açmak yerine bir yerel sunucu (Örn: VS Code "Live Server" eklentisi) kullanarak çalıştırmanız gerekmektedir.
