@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Özel Kaydırmalı Slider</title>
+    <!-- CSS DOSYASI BAĞLANTISI -->
+    <link rel="stylesheet" href="css/css.css">
+</head>
+<body>
+
+  <!-- ANA SARMALAYICI -->
+  <div class="main-content">
+    
+    <!-- 1. SABİT ANA BAŞLIK -->
+    <div class="static-main-header">
+      <h2 class="trend-title">지금 주목해야 할 브랜드</h2>
+    </div>
+
+    <!-- 2. KAYAN İÇERİK KISMI -->
+    <div class="trend-sliding-content" id="sliding-area">
+      
+      <!-- Sol Kolon (Büyük Görsel) -->
+      <div class="banner-content-col">
+        <div class="banner-image-wrapper">
+          <img src="" alt="Büyük Ürün Görseli" id="main-big-img" style="cursor: pointer;">
+        </div>
+      </div>
+
+      <!-- Sağ Kolon (Değişen Başlık + Küçük Görseller) -->
+      <div class="grid-content-col">
+        
+        <!-- Kayarak Değişen Sağ Başlık -->
+        <div class="grid-header">
+          <h3 class="grid-title" id="dynamic-grid-title">가볍게 물든 계절</h3>
+          <p class="grid-subtitle" id="dynamic-grid-subtitle">~30% + 25%</p>
+        </div>
+
+        <div class="trend-grid">
+          <!-- Kart 1 -->
+          <div class="product-card">
+            <div class="product-image-wrapper">
+              <img src="" alt="Ürün 1" class="small-grid-img" style="cursor: pointer;">
+            </div>
+            <div class="product-info-empty"></div> <!-- Yazıların yerini tutan boşluk -->
+          </div>
+          <!-- Kart 2 -->
+          <div class="product-card">
+            <div class="product-image-wrapper">
+              <img src="" alt="Ürün 2" class="small-grid-img" style="cursor: pointer;">
+            </div>
+            <div class="product-info-empty"></div>
+          </div>
+          <!-- Kart 3 -->
+          <div class="product-card">
+            <div class="product-image-wrapper">
+              <img src="" alt="Ürün 3" class="small-grid-img" style="cursor: pointer;">
+            </div>
+            <div class="product-info-empty"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SAYFALAMA VE YÖN BUTONLARI -->
+    <div class="pagination">
+      <button class="prev-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      </button>
+      <span class="page-count">1 / 5</span>
+      <button class="next-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+    </div>
+
+  </div>
+<!-- JAVASCRIPT DOSYASI BAĞLANTILARI (Önce veri, sonra motor yüklenmeli) -->
+  <script src="js/data.js"></script>
+  <script src="js/js.js"></script>
+
+</body>
+</html>
