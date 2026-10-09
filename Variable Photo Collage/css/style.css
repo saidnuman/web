@@ -1,0 +1,179 @@
+/* Temel sıfırlamalar ve font ayarı */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Body'deki sağ-sol boşluğu sıfırlıyoruz ki ekrana sıfıra sıfır yayılsın */
+body {
+    padding: 50px 0; 
+    background-color: #ffffff;
+    overflow-x: hidden; 
+}
+
+/* Kapsayıcının maksimum genişlik sınırını kaldırıp tüm ekrana yayıyoruz */
+.carousel-container {
+    position: relative;
+    width: 100%; 
+    margin: 0;
+}
+
+
+/* Kartların arasındaki boşluğu 16px yapıyoruz ve sağ/sol kenarlara da 16px boşluk ekliyoruz */
+.product-track {
+    display: flex;
+    gap: 16px; 
+    padding: 0 16px; 
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    
+    /* --- EKLENEN HİZALAMA KİLİTLERİ --- */
+    scroll-snap-type: x mandatory; /* Yatayda kaydırma bittiğinde elemanı yakalamaya zorlar */
+    scroll-padding: 0 16px;        /* Yakalama esnasında kenar boşluklarını korur */
+    
+    /* Scrollbar gizleme */
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  
+}
+
+.product-track::-webkit-scrollbar { 
+    display: none; 
+}
+
+/* Matematiksel olarak ekranda tam 6 ürün gösterme formülü */
+.product-card {
+    flex: 0 0 calc((100% - 80px) / 6); 
+    min-width: 160px; 
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    
+    /* --- EKLENEN HİZALAMA KİLİDİ --- */
+    scroll-snap-align: start; /* Her kartın başlangıç noktasını kilit ekseni yapar */
+}
+
+/* --- YANLIŞLIKLA SİLİNEN KISIMLAR (Resim ve Metin Stilleri) --- */
+
+/* Resim çerçevesi (oranları korumak için) */
+.img-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3 / 4; /* Dikdörtgen portre formatı */
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+/* Resimlerin taşmasını engeller ve çerçeveye oturtur */
+.img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- YENİ KALP VE MARKA SATIRI TASARIMI --- */
+
+/* Marka ve kalbi aynı hizada (sağlı sollu) tutmak için */
+.brand-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px; 
+}
+
+.brand {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 0; 
+}
+
+
+/* Kalp Butonunun Temel Tasarımı */
+.heart-btn {
+    background: none;
+    border: none;
+    font-size: 1.8rem; /* BURAYI BÜYÜTTÜK (Eskisi 1.4rem idi) */
+    color: #ccc; 
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Renk değişimi ve hafif bir "pop" (yaylanma) efekti animasyonu */
+    transition: color 0.3s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+}
+
+/* Kalp butonu tıklandığında (beğenildiğinde) aktif olacak sınıf */
+.heart-btn.liked {
+    color: #ff3b30; /* Canlı kırmızı */
+    transform: scale(1.2); /* Tıklandığında %20 büyür */
+}
+
+
+.brand {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.title {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.price-row {
+    font-size: 1.05rem;
+    font-weight: bold;
+}
+
+.discount {
+    color: #ff5e3a; 
+    margin-right: 6px;
+}
+
+.price {
+    color: #111;
+}
+/* ----------------------------------------------------------- */
+
+/* Ok butonlarının yenilenmiş tasarımı */
+.nav-btn {
+    position: absolute;
+    transform: translateY(-50%); /* Kendi merkezinden hizalamak için kalıyor */
+    background: rgba(50, 50, 50, 0.95); 
+    color: white;
+    border: none;
+    width: 48px;  
+    height: 48px; 
+    border-radius: 12px; 
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    
+    opacity: 0.3; 
+    transition: opacity 0.3s ease; 
+}
+
+/* YENİ HOVER MANTIĞI: 
+   Fare, kapsayıcının (.carousel-container) herhangi bir yerine geldiğinde (resimler dahil)
+   içindeki butonların şeffaflığını 1 yapar. */
+.carousel-container:hover .nav-btn {
+    opacity: 1; 
+}
+
+.prev-btn { left: 25px; }  
+.next-btn { right: 25px; }
+
+/* Mobil uyumluluk */
+@media (max-width: 992px) { .product-card { flex: 0 0 calc(25% - 12px); } }
+@media (max-width: 768px) { .product-card { flex: 0 0 calc(33.333% - 12px); } }
+@media (max-width: 480px) { .product-card { flex: 0 0 calc(50% - 12px); } }
