@@ -1,62 +1,79 @@
 document.addEventListener("DOMContentLoaded", () => {
     const track = document.getElementById('product-track');
-    
-    // --- 1. OTOMATİK KART OLUŞTURMA (HATA ALANA KADAR DENE YÖNTEMİ) ---
-    
-    const klasorYolu = "images/"; // Fotoğrafların klasörü (Örn: 'images/')
-    
-    function urunleriOtomatikYukle(yol) {
+    const klasorYolu = "images/"; 
+
+    // --- 1. DIŞARIDAKİ DOSYAYI OKUMA (FETCH) İŞLEMİ ---
+    async function projeyiBaslat() {
+        let urunBilgileri = [];
+        try {
+            // veri.json dosyasını bul ve oku
+            const cevap = await fetch('veri.json');
+            urunBilgileri = await cevap.json(); // Metni JavaScript'in anlayacağı listeye çevir
+        } catch (hata) {
+            console.warn("veri.json okunamadı. Yollar veya sunucu kaynaklı bir sorun olabilir.", hata);
+        }
+
+        // Dosya okunduktan sonra resimleri ve kartları oluşturmaya başla
+        urunleriOtomatikYukle(klasorYolu, urunBilgileri);
+    }
+
+    // --- 2. OTOMATİK KART OLUŞTURMA ---
+    function urunleriOtomatikYukle(yol, veriler) {
         if (!track) return;
-        track.innerHTML = ""; // Önce içini temizle
+        track.innerHTML = ""; 
         
-        let i = 1; // 1.jpg'den başlıyoruz
+        let i = 1; 
 
         function siradakiResmiDene() {
             const imgUrl = `${yol}${i}.jpg`;
-            const img = new Image(); // Sanal bir resim objesi oluşturuyoruz
+            const img = new Image(); 
             
-            // Eğer resim klasörde VARSA bu blok çalışır:
             img.onload = function() {
+                // veri.json'daki sıraya göre yazıyı al. Eğer json'da eksik satır varsa varsayılanı kullan
+                const bilgi = veriler[i - 1] || { 
+                    marka: "Markasız", 
+                    baslik: `Yeni Ürün ${i}`, 
+                    indirim: "%0", 
+                    fiyat: "0,000" 
+                };
+
                 const cardHTML = `
                     <div class="product-card">
                         <div class="img-wrapper">
-                            <img src="${imgUrl}" alt="Ürün ${i}"> 
+                            <img src="${imgUrl}" alt="${bilgi.baslik}"> 
                         </div>
                         <div class="brand-row">
-                            <div class="brand">Marka Adı ${i}</div>
+                            <div class="brand">${bilgi.marka}</div>
                             <button class="heart-btn">&#9825;</button> 
                         </div>
-                        <div class="title">Örnek Ürün Başlığı ${i}</div>
-                        <div class="price-row"><span class="discount">%20</span><span class="price">100,000</span></div>
+                        <div class="title">${bilgi.baslik}</div>
+                        <div class="price-row"><span class="discount">${bilgi.indirim}</span><span class="price">${bilgi.fiyat}</span></div>
                     </div>
                 `;
-                track.insertAdjacentHTML('beforeend', cardHTML); // Kartı ekle
-                i++; // Sıradaki numaraya geç
-                siradakiResmiDene(); // Fonksiyonu tekrar çağırıp bir sonrakini dene
+                
+                track.insertAdjacentHTML('beforeend', cardHTML); 
+                i++; 
+                siradakiResmiDene(); 
             };
             
-            // Eğer resim klasörde YOKSA (Klasördeki son resme ulaştıysak) bu blok çalışır:
             img.onerror = function() {
-                console.log(`Arama bitti! Toplam ${i - 1} adet fotoğraf bulundu.`);
-                // Resimlerin hepsi yüklendiği için butonları ve kalp özelliklerini şimdi aktifleştirebiliriz
+                // Resimler bittiğinde kalan işlemleri yap
                 setTimeout(alignButtonsToImageCenter, 50); 
                 kalpButonlariniAktifEt();
-                updateButtonVisibility(); // Slider oklarını kontrol et
+                updateButtonVisibility(); 
             };
             
-            // Tetikleyici: Sanal resmin kaynağına adresi ver
             img.src = imgUrl; 
         }
         
-        siradakiResmiDene(); // Döngüyü başlat
+        siradakiResmiDene(); 
     }
 
-    // Fonksiyonu çalıştır
-    urunleriOtomatikYukle(klasorYolu);
+    // Sistemi tetikliyoruz
+    projeyiBaslat();
 
 
-    // --- 2. MEVCUT SLIDER VE OK BUTONU İŞLEMLERİ ---
-    
+    // --- 3. MEVCUT SLIDER VE BUTON İŞLEMLERİ (Aynı Kalıyor) ---
     const prevBtn = document.querySelector('.prev-btn');
     const nextBtn = document.querySelector('.next-btn');
 
@@ -78,9 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
         isButtonClicked = true;
         clearTimeout(clickTimeout);
         clickTimeout = setTimeout(() => { isButtonClicked = false; }, 600);
-
         track.scrollBy({ left: amount, behavior: 'smooth' });
-
         if (track.scrollLeft + amount + track.clientWidth >= track.scrollWidth - 10) {
             nextBtn.style.display = 'none'; 
         }
@@ -92,9 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
         isButtonClicked = true;
         clearTimeout(clickTimeout);
         clickTimeout = setTimeout(() => { isButtonClicked = false; }, 600);
-
         track.scrollBy({ left: -amount, behavior: 'smooth' });
-
         if (track.scrollLeft - amount <= 10) {
             prevBtn.style.display = 'none'; 
         }
@@ -116,34 +129,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateButtonVisibility() {
         if (isButtonClicked) return; 
-
-        if (track.scrollLeft <= 0) {
-            prevBtn.style.display = 'none';
-        } else {
-            prevBtn.style.display = 'flex';
-        }
-
-        if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 1) {
-            nextBtn.style.display = 'none';
-        } else {
-            nextBtn.style.display = 'flex';
-        }
+        if (track.scrollLeft <= 0) prevBtn.style.display = 'none';
+        else prevBtn.style.display = 'flex';
+        if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 1) nextBtn.style.display = 'none';
+        else nextBtn.style.display = 'flex';
     }
 
     track.addEventListener('scroll', updateButtonVisibility);
     window.addEventListener('resize', updateButtonVisibility);
 
-    // --- 3. KALP BUTONU FONKSİYONLARI ---
-    // Resimler sonradan yüklendiği için kalp fonksiyonunu dışarı aldık ve resimler bitince çağırıyoruz
     function kalpButonlariniAktifEt() {
         const heartButtons = document.querySelectorAll('.heart-btn');
-
         heartButtons.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation(); 
-                
                 btn.classList.toggle('liked');
-                
                 if (btn.classList.contains('liked')) {
                     btn.innerHTML = '&#9829;'; 
                 } else {
