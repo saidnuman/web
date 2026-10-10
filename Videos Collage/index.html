@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kategorili Video Carousel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="carousel-section">
+        <!-- YENİ: Başlık ve kategorileri kapsayan alan -->
+        <div class="carousel-header-container">
+            <div class="carousel-header">
+                <h2 id="ana-baslik"></h2>
+                <a href="#" id="daha-fazla-btn" class="see-more"></a>
+            </div>
+            <!-- YENİ: Kategorilerin JS tarafından ekleneceği boş div -->
+            <div id="kategori-container" class="category-tabs"></div>
+        </div>
+
+        <div class="carousel-wrapper">
+            <div class="carousel-track" id="track"></div>
+        </div>
+
+        <div class="carousel-controls">
+            <button id="prevBtn" disabled><i class="fas fa-chevron-left"></i></button>
+            <span id="pagination">0 / 0</span>
+            <button id="nextBtn" disabled><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <script src="veri.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

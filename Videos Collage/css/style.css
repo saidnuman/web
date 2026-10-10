@@ -1,0 +1,230 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background-color: #1e1e1e;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.carousel-section {
+    width: 100%;
+    padding: 40px; 
+}
+
+/* Başlık ve Kategorileri Kapsayan Alan */
+.carousel-header-container {
+    margin-bottom: 25px;
+}
+
+.carousel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 15px; 
+}
+
+.carousel-header h2 {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.see-more {
+    color: #888;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.see-more:hover {
+    color: white;
+}
+
+/* Kategori Sekmeleri (Tabs) Tasarımı */
+.category-tabs {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.category-tab {
+    color: #888;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 6px 16px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.category-tab:hover {
+    color: #ccc;
+}
+
+.category-tab.active {
+    background-color: white;
+    color: black;
+}
+
+/* Kaydırma Alanı */
+.carousel-wrapper {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.5s ease-in-out;
+}
+
+/* Video Kartları (9:16 Oranı) */
+.card {
+    flex: 0 0 calc(25% - 15px);
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 9 / 16; 
+    background-color: #333;
+    cursor: pointer;
+}
+
+.card video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Yazıların Okunabilirliğini Artıran Şeffaf Koyu Alt Katman */
+.card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 70%; 
+    background: linear-gradient(
+        to top, 
+        rgba(0, 0, 0, 1) 0%,      
+        rgba(20, 20, 20, 0.85) 45%,
+        transparent 100%          
+    );
+    pointer-events: none;
+    z-index: 5; 
+}
+
+/* Sol Üstteki Rozet (Live, Styling vs.) */
+.badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    z-index: 10;
+}
+
+/* Sağ Üstteki Oynat (Play) İkonu */
+.play-icon-overlay {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 32px;
+    height: 32px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 12px;
+    z-index: 10;
+    transition: opacity 0.3s ease;
+}
+
+/* Video oynarken ikonu gizle */
+.card.is-playing .play-icon-overlay {
+    opacity: 0; 
+}
+
+/* Kart İçindeki Yazılar */
+.card-info {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: calc(100% - 40px); 
+    z-index: 10; 
+}
+
+.card-info h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-info p {
+    font-size: 13px;
+    color: #e0e0e0;
+}
+
+/* Alt Kontrol Butonları ve Sayfalama */
+.carousel-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.carousel-controls button {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px;
+    transition: color 0.3s;
+}
+
+.carousel-controls button:hover:not(:disabled) {
+    color: white;
+}
+
+.carousel-controls button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+#pagination {
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    letter-spacing: 2px;
+}
+
+/* Responsive (Mobil Uyumluluk) Ayarları */
+@media (max-width: 900px) {
+    .card { flex: 0 0 calc(33.333% - 13.33px); }
+}
+@media (max-width: 600px) {
+    .card { flex: 0 0 calc(50% - 10px); }
+    .carousel-section { padding: 20px; }
+}
+@media (max-width: 450px) {
+    .card { flex: 0 0 100%; }
+}
