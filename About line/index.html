@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Özel Alt Bilgi (Footer)</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <!-- Sol Kısım -->
+            <div class="footer-left">
+                <div class="logo-container">
+                    <img src="logo.png" alt="Firma Logosu" class="footer-logo">
+                </div>
+                <!-- ID eklendi, içi boşaltıldı -->
+                <p class="footer-description" id="footer-text-container"></p>
+            </div>
+
+            <!-- Sağ Kısım -->
+            <div class="footer-right">
+                <!-- ID eklendi, içi boşaltıldı -->
+                <ul class="social-links" id="social-links-container">
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; <span id="current-year"></span> Tüm Hakları Saklıdır.</p>
+        </div>
+    </footer>
+
+    <!-- DİKKAT: veri.js'i script.js'den önce eklemelisin -->
+    <script src="veri.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
