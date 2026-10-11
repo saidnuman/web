@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Özel Alt Bilgi (Footer)</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Diğer ikonlar için FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Footer Şablonu -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <!-- Sol Kısım: Logo ve Açıklama -->
+            <div class="footer-left">
+                <div class="logo-container">
+                    <!-- Sitenizin kendi logosu -->
+                    <img src="logo.png" alt="Firma Logosu" class="footer-logo">
+                </div>
+                <p class="footer-description">
+                    Yenilikçi dijital çözümlerle geleceği inşa ediyoruz.<br>
+                    Sizlerle birlikte büyümeye ve üretmeye devam ediyoruz.
+                </p>
+            </div>
+
+            <!-- Sağ Kısım: Sosyal Medya Linkleri -->
+            <div class="footer-right">
+                <ul class="social-links">
+                    <li>
+                        <a href="#">
+                            <i class="fa-brands fa-instagram"></i>
+                            <span>Instagram</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa-brands fa-youtube"></i>
+                            <span>YouTube</span>
+                        </a>
+                    </li>
+                    
+                    <!-- DOLAP: Kod ile çizilmiş vektör ikon -->
+                    <li>
+                        <a href="#">
+                            <svg class="custom-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M15 2 L5 12 L11 18 L15 14 V2 Z"></path>
+                            </svg>
+                            <span>Dolap</span>
+                        </a>
+                    </li>
+
+                    <!-- GARDROPS: Kod ile çizilmiş vektör ikon -->
+                    <li>
+                        <a href="#">
+                            <svg class="custom-svg-icon" viewBox="0 0 24 24" fill="currentColor">
+                                <text x="50%" y="78%" font-family="cursive, 'Brush Script MT', sans-serif" font-size="28" font-weight="bold" font-style="italic" text-anchor="middle">g</text>
+                            </svg>
+                            <span>Gardrops</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            <i class="fa-brands fa-tiktok"></i>
+                            <span>TikTok</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa-brands fa-pinterest"></i>
+                            <span>Pinterest</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; <span id="current-year"></span> Tüm Hakları Saklıdır.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
